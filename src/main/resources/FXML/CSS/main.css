@@ -1,0 +1,27 @@
+
+.nav{
+    -fx-background-color: #283b4c;
+}
+
+.btn{
+    -fx-background-color: #2c3d52;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-border-color: white;
+    -fx-border-width: 0px 0px 2px 0px;
+}
+
+.btn:hover{
+    -fx-background-color: #253241 ;
+}
+
+.btn:pressed{
+    -fx-background-color: #1f2832 ;
+}
+
+.cambio{
+
+}

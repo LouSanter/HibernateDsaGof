@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="vbox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="332.0" prefWidth="385.0" styleClass="back" stylesheets="@../CSS/modals.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lousanter.controller.fxController.proveedor.NewProvModalController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label text="NUEVO PROVEEDOR">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label prefHeight="20.0" prefWidth="210.0" text="NOMBRE DE PROVEEDOR: ">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="lblProv" prefHeight="25.0" prefWidth="154.0" />
+         </children>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label prefHeight="20.0" prefWidth="210.0" text="RUC DE PROVEEDOR: ">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="lblRucProv" prefHeight="25.0" prefWidth="154.0" />
+         </children>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="176.0" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label prefHeight="20.0" prefWidth="210.0" text="DIRECCION DE PROVEEDOR: ">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="lblDirProv" prefHeight="25.0" prefWidth="154.0" />
+         </children>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="208.0" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label prefHeight="20.0" prefWidth="210.0" text="TELEFONO DE PROVEEDOR: ">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="lblTelProv" prefHeight="25.0" prefWidth="154.0" />
+         </children>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="385.0">
+         <children>
+            <Button fx:id="btnGuardarProv" mnemonicParsing="false" onAction="#guardarProv" styleClass="btnNew" text="GUARDAR PROVEEDOR" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

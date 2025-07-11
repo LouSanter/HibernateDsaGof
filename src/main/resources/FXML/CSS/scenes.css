@@ -1,0 +1,62 @@
+
+.back {
+    -fx-background-color: #385167;
+}
+
+
+.table .column-header {
+    -fx-background-color: #385167;
+}
+
+.table .column-header .label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+
+.table-cell {
+    -fx-font-size: 13px;
+    -fx-padding: 5 10 5 10;
+    -fx-text-fill: #333;
+}
+
+
+.btnNew {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+
+.btnUpdate {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+
+.btnDelete {
+    -fx-background-color: #f44336;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+
+.btnNew:hover {
+    -fx-background-color: #45a049;
+}
+
+.btnUpdate:hover {
+    -fx-background-color: #1976d2;
+}
+
+.btnDelete:hover {
+    -fx-background-color: #d32f2f;
+}

@@ -1,0 +1,25 @@
+
+.back{
+    -fx-background-color: white ;
+}
+
+.btnNew:hover {
+    -fx-background-color: #45a049;
+}
+.btnNew {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+.btnUpdate:hover {
+    -fx-background-color: #1976d2;
+}
+.btnUpdate {
+     -fx-background-color: #2196F3;
+     -fx-text-fill: white;
+     -fx-font-weight: bold;
+     -fx-background-radius: 5;
+     -fx-cursor: hand;
+ }

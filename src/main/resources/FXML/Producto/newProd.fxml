@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="299.0" prefWidth="658.0" stylesheets="@../CSS/modals.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lousanter.controller.fxController.producto.NewProdModalController">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="101.0" layoutY="58.0" prefHeight="392.0" prefWidth="637.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="659.0" text="CREAR PRODUCTO">
+               <VBox.margin>
+                  <Insets bottom="30.0" top="10.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <HBox prefHeight="41.0" prefWidth="603.0">
+               <children>
+                  <Label prefHeight="0.0" prefWidth="150.0" text="CODIGO">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="lblCodigo" />
+                  <Label prefHeight="0.0" prefWidth="170.0" text="PRECIO VENTA">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="lblPrecioVenta" />
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="27.0" prefHeight="41.0" prefWidth="603.0">
+               <children>
+                  <Label prefHeight="0.0" prefWidth="150.0" text="NOMBRE">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="lblNombre" />
+                  <Label prefHeight="17.0" prefWidth="170.0" text="CATEGORIA">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+                  <ComboBox fx:id="boxCate" prefWidth="150.0" promptText="CATEGORIAS" />
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="68.0" prefHeight="41.0" prefWidth="603.0">
+               <children>
+                  <Label prefHeight="0.0" prefWidth="150.0" text="STOCK">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="lblStock" />
+                  <Label prefHeight="17.0" prefWidth="170.0" text="PROVEEDOR">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+                  <ComboBox fx:id="boxProv" prefWidth="150.0" promptText="PROVEEDORES" />
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="109.0" prefHeight="41.0" prefWidth="603.0">
+               <children>
+                  <Label prefHeight="0.0" prefWidth="150.0" text="STOCK MINIMO">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="lblStockMin" />
+                  <Label prefHeight="17.0" prefWidth="170.0" text="UBICACION">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+                  <ComboBox fx:id="boxUbi" prefWidth="150.0" promptText="UBICACIONES" />
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="150.0" prefHeight="41.0" prefWidth="603.0">
+               <children>
+                  <Label prefHeight="0.0" prefWidth="150.0" text="PRECIO COMPRA">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="lblPrecioCompra" />
+                  <Label prefHeight="0.0" prefWidth="170.0" text="DESCRIPCION">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="lblDes" />
+               </children>
+            </HBox>
+            <Button fx:id="genAI" alignment="CENTER" mnemonicParsing="false" onAction="#genai" prefHeight="25.0" prefWidth="234.0" styleClass="btnNew" text="GENENERAR DESCRIPCION IA">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btnSave" alignment="CENTER" layoutX="249.0" layoutY="253.0" mnemonicParsing="false" onAction="#newProd" prefHeight="25.0" prefWidth="178.0" styleClass="btnNew" text="GUARDAR">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

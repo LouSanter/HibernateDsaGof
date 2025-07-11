@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="vbox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="332.0" prefWidth="385.0" stylesheets="@../CSS/modals.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lousanter.controller.fxController.cateogoria.NewCateModalController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label text="NUEVA CATEGORIA">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label text="NOMBRE DE LA CATEGORIA: ">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="lblCate" prefHeight="25.0" prefWidth="154.0" />
+         </children>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding>
+      </HBox>
+      <VBox prefHeight="217.0" prefWidth="385.0">
+         <children>
+            <Label text="DESCRIPCION" />
+            <TextArea fx:id="lblCateDescripcion" prefHeight="125.0" prefWidth="298.0" wrapText="true">
+               <font>
+                  <Font size="15.0" />
+               </font></TextArea>
+            <Button fx:id="btnGenerar" mnemonicParsing="false" onAction="#generarIA" styleClass="btnUpdate" text="GENERAR DESCRIPCION IA">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding>
+      </VBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="385.0">
+         <children>
+            <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#guardarCategoria" styleClass="btnNew" text="NUEVA CATEGORIA" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

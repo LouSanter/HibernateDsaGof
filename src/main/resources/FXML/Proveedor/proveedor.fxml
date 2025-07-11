@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="487.0" prefWidth="875.0" styleClass="back" stylesheets="@../CSS/scenes.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lousanter.controller.fxController.proveedor.ProvController">
+   <children>
+      <GridPane alignment="BOTTOM_CENTER" layoutY="21.0" prefHeight="487.0" prefWidth="725.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="431.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="87.0" minHeight="10.0" prefHeight="48.0" valignment="CENTER" vgrow="ALWAYS" />
+          <RowConstraints maxHeight="595.0" minHeight="10.0" prefHeight="439.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="514.0" prefWidth="718.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="BUCAR PROVEEDOR" textFill="#575757">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="fldBuscar" prefHeight="30.0" prefWidth="388.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TableView fx:id="provTable" prefHeight="325.0" prefWidth="681.0" styleClass="table">
+                           <columns>
+                              <TableColumn fx:id="colProv" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="155.0" styleClass="table-cell" text="PROVEEDOR" />
+                              <TableColumn fx:id="colRuc" maxWidth="327.0" minWidth="0.0" prefWidth="122.0" styleClass="table-cell" text="RUC" />
+                              <TableColumn fx:id="colDir" maxWidth="550.0" minWidth="0.0" prefWidth="131.0" styleClass="table-cell" text="DIRECCION" />
+                              <TableColumn fx:id="colTel" maxWidth="327.0" minWidth="0.0" prefWidth="118.0" styleClass="table-cell" text="TELEFONO" />
+                           </columns>
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                        <HBox alignment="CENTER" prefHeight="58.0" prefWidth="603.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Button fx:id="btnNuevaProv" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#newProv" prefHeight="51.0" prefWidth="160.0" styleClass="btnNew" text="NUEVO PROVEEDOR">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="updateCate" mnemonicParsing="false" onAction="#editProv" prefHeight="51.0" prefWidth="160.0" styleClass="btnUpdate" text="ACTUALIZAR PROVEEDOR">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="btnDeleteProv" mnemonicParsing="false" onAction="#deleteProv" prefHeight="51.0" prefWidth="160.0" styleClass="btnDelete" text="ELIMINAR PROVEEDOR" />
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets left="80.0" right="80.0" top="20.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets left="20.0" right="20.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+               </GridPane.margin>
+            </HBox>
+            <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="PROVEEDOR" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
