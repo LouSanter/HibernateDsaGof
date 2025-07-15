@@ -3,7 +3,7 @@ package org.lousanter.model.mapper;
 import org.lousanter.model.entities.Categoria;
 import org.lousanter.model.dto.CategoriaDTO;
 
-public class CategoriaMapper {
+public class CategoriaMapper{
 
 
     public static CategoriaDTO toDTO(Categoria categoria) {
@@ -13,6 +13,7 @@ public class CategoriaMapper {
         categoriaDTO.setDescripcion(categoria.getDescripcion());
         return categoriaDTO;
     }
+
     public static Categoria toEntity(CategoriaDTO categoriaDTO) {
         Categoria categoria = new Categoria();
         categoria.setIdCategoria(categoriaDTO.getId());
@@ -20,4 +21,5 @@ public class CategoriaMapper {
         categoria.setDescripcion(categoriaDTO.getDescripcion());
         return categoria;
     }
+
 }

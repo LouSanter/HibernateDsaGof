@@ -1,10 +1,12 @@
 package org.lousanter.service;
 
+import org.lousanter.model.dto.ProveedorDTO;
 import org.lousanter.model.entities.Categoria;
 import org.lousanter.model.repo.CategoriaRepo;
 import org.lousanter.model.dto.CategoriaDTO;
 import org.lousanter.model.mapper.CategoriaMapper;
 import org.lousanter.util.categoriaUtil.CategoriaList;
+import org.lousanter.util.proveedorUtil.ProveedorList;
 
 import java.util.List;
 
@@ -14,7 +16,6 @@ public class CategoriaService{
 
 
     CategoriaRepo cRepo = new CategoriaRepo(Categoria.class);
-
 
 
     public List<CategoriaDTO> listarCategoria(){
@@ -57,8 +58,8 @@ public class CategoriaService{
     }
 
 
+    public CategoriaDTO findById(Long idCategoria) {
+        return CategoriaList.getCategoria(idCategoria);
 
-
-
-
+    }
 }

@@ -33,13 +33,13 @@ public class SceneController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)  {
-//        try {
-//            //Parent root = FXMLLoader.load(getClass().getResource("/FXML/Producto/productos.fxml"));
-//           // grid.getChildren().remove(1,1);
-//           // grid.add(root,1,1);
-//        }catch (IOException e){
-//           // e.printStackTrace();
-//        }
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/FXML/Producto/producto.fxml"));
+            grid.getChildren().remove(1,1);
+            grid.add(root,1,1);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
 
     }
 

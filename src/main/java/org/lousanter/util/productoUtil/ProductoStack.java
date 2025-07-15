@@ -1,5 +1,6 @@
 package org.lousanter.util.productoUtil;
 
+import org.lousanter.model.dto.ProductoDTO;
 import org.lousanter.model.entities.Producto;
 
 import java.util.ArrayList;
@@ -7,17 +8,32 @@ import java.util.List;
 import java.util.Stack;
 
 
-//Pila para el historial de los productos
 public class ProductoStack {
-    private Stack<Producto> historial = new Stack<>();
+    private static final Stack<ProductoHistorialEntry> undoStack = new Stack<>();
+    private static final Stack<ProductoHistorialEntry> redoStack = new Stack<>();
 
-    public void push(Producto producto) {
-        historial.push(producto);
+    public static void push(ProductoDTO producto, ProductoHistorialEntry.Accion accion) {
+        undoStack.push(new ProductoHistorialEntry(producto, accion));
+        redoStack.clear();
     }
-    public Producto pop() {
-        return historial.pop();
+
+    public static ProductoHistorialEntry undoPop() {
+        ProductoHistorialEntry e = undoStack.pop();
+        redoStack.push(e);
+        return e;
     }
-    public List<Producto> getAll() {
-        return new ArrayList<Producto>(historial);
+
+    public static ProductoHistorialEntry redoPop() {
+        ProductoHistorialEntry e = redoStack.pop();
+        undoStack.push(e);
+        return e;
+    }
+
+    public static boolean canUndo() {
+        return !undoStack.isEmpty();
+    }
+
+    public static boolean canRedo() {
+        return !redoStack.isEmpty();
     }
 }

@@ -25,7 +25,7 @@ public class GenericDaoImpl<T, ID extends Serializable> implements GenericDao<T,
 
     public T findById(ID id) {
         Session session = getSession();
-        T entidad = session.getReference(entityClass, id);
+        T entidad = session.find(entityClass, id);
         session.close();
         return entidad;
     }
@@ -53,15 +53,17 @@ public class GenericDaoImpl<T, ID extends Serializable> implements GenericDao<T,
     }
 
 
-    public void save(T entity) {
-        System.out.println("ENTRANDO EN METODO SAVE");
+    public T save(T entity) {
         Session session = getSession();
         Transaction tx = session.beginTransaction();
-        session.persist(entity);
+        T managedEntity = (T) session.merge(entity);
         tx.commit();
         session.close();
-
+        return managedEntity;
     }
+
+
+
 
     public void update(T entity) {
         System.out.println("ENTRANDO EN METODO UPDATE");

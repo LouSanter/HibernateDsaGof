@@ -10,14 +10,27 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.lousanter.controller.daoController.DaoCateController;
 import org.lousanter.controller.daoController.DaoProdController;
+import org.lousanter.controller.daoController.DaoProvController;
+import org.lousanter.controller.daoController.DaoUbiController;
 import org.lousanter.model.dto.CategoriaDTO;
 import org.lousanter.model.dto.ProductoDTO;
 import org.lousanter.model.entities.Categoria;
+import org.lousanter.model.entities.Proveedor;
+import org.lousanter.model.entities.Ubicacion;
+import org.lousanter.model.mapper.CategoriaMapper;
+import org.lousanter.model.mapper.ProveedorMapper;
+import org.lousanter.model.mapper.UbicacionMapper;
 import org.lousanter.model.observer.Observable;
 import org.lousanter.model.observer.Observer;
 import org.lousanter.util.productoUtil.ProductoBST;
+import org.lousanter.util.productoUtil.ProductoHistorialEntry;
+import org.lousanter.util.productoUtil.ProductoStack;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -59,26 +72,86 @@ public class ProdController implements Initializable, Observer {
     private TextField fldBuscar;
 
     @FXML
+    private VBox contentPane;
+
+
+    @FXML
     private Button updateCate;
 
     private final DaoProdController daoProdController = new DaoProdController();
 
+    ContextMenu historial = new ContextMenu();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+
+        MenuItem undo = new MenuItem("Deshacer");
+        MenuItem redo = new MenuItem("Rehacer");
+
+        undo.setOnAction(e-> clickOnUndo());
+
+        historial.getItems().addAll(undo, redo);
+
+        contentPane.setOnMousePressed(this::handleMouseClick);
         colProd.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         colCod.setCellValueFactory(new PropertyValueFactory<>("codigo"));
         colPrecio.setCellValueFactory(new PropertyValueFactory<>("precioVenta"));
         colStock.setCellValueFactory(new PropertyValueFactory<>("stock"));
         colCate.setCellValueFactory(new PropertyValueFactory<>("nombreCategoria")); // campo adicional desde el mapper
 
-        // Buscar
         fldBuscar.textProperty().addListener((obs, oldValue, newValue) -> buscar(newValue));
         Observable.addObserver(this);
-       cargarTabla();
+        cargarTabla();
+    }
+    private void handleMouseClick(MouseEvent event) {
+        if (event.getButton() == MouseButton.SECONDARY) {
+            historial.show(contentPane, event.getScreenX(), event.getScreenY());
+        } else {
+            historial.hide();
+        }
     }
 
+
+    DaoCateController daoCateController = new DaoCateController();
+    DaoProvController daoProvController = new DaoProvController();
+    DaoUbiController daoUbiController = new DaoUbiController();
+
+
+
+    //DESHACER
+    private void clickOnUndo() {
+        if (ProductoStack.canUndo()) {
+            ProductoHistorialEntry entrada = ProductoStack.undoPop();
+            ProductoDTO producto = entrada.getProducto();
+
+            switch (entrada.getAccion()) {
+                case NUEVO:
+                    daoProdController.eliminarProducto(producto.getIdProducto());
+                    break;
+
+                case ELIMINADO:
+                    Ubicacion ubi = UbicacionMapper.toEntity(daoUbiController.buscarUbicacion(producto.getIdUbicacion()));
+                    Proveedor prov = ProveedorMapper.toEntity(daoProvController.findById(producto.getIdProveedor()));
+                    Categoria cate = CategoriaMapper.toEntity(daoCateController.findById(producto.getIdCategoria()));
+                    daoProdController.registrarProducto(producto, ubi, prov, cate);
+                    ProductoStack.undoPop();
+                    break;
+
+                case ACTUALIZADO:
+                    Ubicacion ubiAnt = UbicacionMapper.toEntity(daoUbiController.buscarUbicacion(producto.getIdUbicacion()));
+                    Proveedor provAnt = ProveedorMapper.toEntity(daoProvController.findById(producto.getIdProveedor()));
+                    Categoria cateAnt = CategoriaMapper.toEntity(daoCateController.findById(producto.getIdCategoria()));
+                    daoProdController.actualizarProducto(producto, ubiAnt, provAnt, cateAnt);
+                    break;
+            }
+        }
+        cargarTabla();
+    }
+
+
     private void cargarTabla() {
+        ProductoBST.sincro();
         System.out.println("Cargando tabla...");
         List<ProductoDTO> lista = daoProdController.listarProductos();
         ObservableList<ProductoDTO> productos = FXCollections.observableList(lista);
@@ -116,6 +189,7 @@ public class ProdController implements Initializable, Observer {
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.isPresent() && result.get() == ButtonType.OK) {
+
                 daoProdController.eliminarProducto(prod.getIdProducto());
 
             } else {
@@ -157,12 +231,6 @@ public class ProdController implements Initializable, Observer {
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
-
-
-
-    @FXML
-    private Button btnUp;
-
 
 
 

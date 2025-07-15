@@ -28,9 +28,11 @@ import org.lousanter.model.entities.Ubicacion;
 import org.lousanter.model.factory.ProductoFactory;
 import org.lousanter.model.factory.ProveedorFactory;
 import org.lousanter.model.mapper.CategoriaMapper;
+import org.lousanter.model.mapper.ProductoMapper;
 import org.lousanter.model.mapper.ProveedorMapper;
 import org.lousanter.model.mapper.UbicacionMapper;
 import org.lousanter.util.categoriaUtil.CategoriaList;
+import org.lousanter.util.productoUtil.ProductoStack;
 import org.lousanter.util.proveedorUtil.ProveedorList;
 import org.lousanter.util.ubicacionList.UbicacionList;
 
@@ -91,7 +93,7 @@ public class NewProdModalController implements Initializable {
 
     @FXML
     public void newProd(ActionEvent event) {
-        ProductoDTO producto = ProductoFactory.crearDesdeFormulario(
+        ProductoDTO productoDTO = ProductoFactory.crearDesdeFormulario(
                 lblNombre,
                 lblCodigo,
                 lblStock,
@@ -103,12 +105,13 @@ public class NewProdModalController implements Initializable {
                 boxUbi,
                 lblDes
         );
-        daoProd.registrarProducto(producto,
+        daoProd.registrarProducto(productoDTO,
                 UbicacionMapper.toEntity(boxUbi.getSelectionModel().getSelectedItem()),
                 ProveedorMapper.toEntity(boxProv.getSelectionModel().getSelectedItem()),
                 CategoriaMapper.toEntity(boxCate.getSelectionModel().getSelectedItem())
         );
         ((Stage) pane.getScene().getWindow()).close();
+
 
     }
 

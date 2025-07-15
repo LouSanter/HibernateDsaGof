@@ -22,7 +22,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-
+        cargarCache();
         Parent root = FXMLLoader.load(getClass().getResource("/FXML/main.fxml"));
         Scene scene = new Scene(root);
 
@@ -31,7 +31,7 @@ public class Main extends Application {
         stage.setTitle("INVENTARIO CON DSA");
         stage.setFullScreen(true);
 
-        cargarCache();
+
         stage.show();
 
     }

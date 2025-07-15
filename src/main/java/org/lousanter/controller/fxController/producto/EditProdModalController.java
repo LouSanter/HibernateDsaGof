@@ -23,15 +23,21 @@ import org.lousanter.model.dto.CategoriaDTO;
 import org.lousanter.model.dto.ProductoDTO;
 import org.lousanter.model.dto.ProveedorDTO;
 import org.lousanter.model.dto.UbicacionDTO;
+import org.lousanter.model.entities.Categoria;
+import org.lousanter.model.entities.Proveedor;
+import org.lousanter.model.entities.Ubicacion;
 import org.lousanter.model.factory.ProductoFactory;
 import org.lousanter.model.mapper.CategoriaMapper;
 import org.lousanter.model.mapper.ProveedorMapper;
 import org.lousanter.model.mapper.UbicacionMapper;
 import org.lousanter.util.categoriaUtil.CategoriaList;
+import org.lousanter.util.productoUtil.ProductoHistorialEntry;
+import org.lousanter.util.productoUtil.ProductoStack;
 import org.lousanter.util.proveedorUtil.ProveedorList;
 import org.lousanter.util.ubicacionList.UbicacionList;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -128,35 +134,37 @@ public class EditProdModalController implements Initializable {
 
     }
 
+
+
     @FXML
     public void save(ActionEvent event) {
-        /*ProductoDTO producto = ProductoFactory.f(
-                lblNombre,
-                lblCodigo,
-                lblStock,
-                lblStockMin,
-                lblPrecioCompra,
-                lblPrecioVenta,
-                boxCate,
-                boxProv,
-                boxUbi
+        ProductoDTO prod = prodRec;
+        Long idCategoria = boxCate.getSelectionModel().getSelectedItem().getId();
+        Long idUbicacion = boxUbi.getSelectionModel().getSelectedItem().getIdUbicacion();
+        Long idProveedor = boxProv.getSelectionModel().getSelectedItem().getIdProveedor();
 
-        );
-        daoProd.actualizarProducto(producto,
-                UbicacionMapper.toEntity(boxUbi.getSelectionModel().getSelectedItem()),
-                ProveedorMapper.toEntity(boxProv.getSelectionModel().getSelectedItem()),
-                CategoriaMapper.toEntity(boxCate.getSelectionModel().getSelectedItem())
-        );
-        ((Stage) pane.getScene().getWindow()).close();
+        Ubicacion ubi = UbicacionMapper.toEntity(boxUbi.getSelectionModel().getSelectedItem());
+        Proveedor provMapper = ProveedorMapper.toEntity(boxProv.getSelectionModel().getSelectedItem());
+        Categoria cate = CategoriaMapper.toEntity(boxCate.getSelectionModel().getSelectedItem());
+
+
+        prod.setNombre(lblNombre.getText());
+        prod.setDescripcion(lblDes.getText());
+        prod.setStock(Integer.parseInt(lblStock.getText()));
+        prod.setStockMin(Integer.parseInt(lblStockMin.getText()));
+        prod.setNombreProveedor(boxProv.getSelectionModel().getSelectedItem().getNombre());
+        prod.setIdCategoria(idCategoria);
+        prod.setIdUbicacion(idUbicacion);
+        prod.setIdProveedor(idProveedor);
+
+        prod.setPrecioCompra(new BigDecimal(lblPrecioCompra.getText()));
+        prod.setPrecioVenta(new BigDecimal(lblPrecioVenta.getText()));
+
+        prod.setCodigo(lblCodigo.getText());
+        daoProd.actualizarProducto(prod, ubi, provMapper, cate);
 
     }
-    */
 
-
-
-
-
-    }
 }
 
 

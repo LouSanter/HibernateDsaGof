@@ -6,7 +6,6 @@ import org.lousanter.dao.HibernateUtil;
 import org.lousanter.model.entities.Categoria;
 import org.lousanter.model.dto.CategoriaDTO;
 import org.lousanter.model.mapper.CategoriaMapper;
-import org.lousanter.model.observer.Observer;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ChatClientConstructor {
 
-    static OpenAiService service = new OpenAiService("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");
+    static OpenAiService service = new OpenAiService("$(OPENAI_API_KEY)");
 
     private static ChatMessage chatMessage;
 
