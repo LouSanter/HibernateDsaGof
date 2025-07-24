@@ -1,15 +1,15 @@
 package org.lousanter.IA;
 
+import java.util.List;
+
 import com.theokanning.openai.completion.chat.ChatCompletionChoice;
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;
 import com.theokanning.openai.completion.chat.ChatMessage;
 import com.theokanning.openai.service.OpenAiService;
 
-import java.util.List;
-
 public class ChatClientConstructor {
 
-    static OpenAiService service = new OpenAiService("$(OPENAI_API_KEY)");
+    static OpenAiService service = new OpenAiService(System.getenv("OPENAI_API_KEY"));
 
     private static ChatMessage chatMessage;
 

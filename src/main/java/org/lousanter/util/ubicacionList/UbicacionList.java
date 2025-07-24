@@ -13,68 +13,84 @@ import java.util.List;
 public class UbicacionList {
 
 
-    private static Long itemsBD = 0L;
-    private static Long itemsFF = 0L;
+    private static Nodo head = null;
 
-    private static List<UbicacionDTO> ubiList = new ArrayList<>();
+    private static class Nodo {
+        UbicacionDTO dato;
+        Nodo siguiente;
 
-
-
-    public static void addUbi(UbicacionDTO ubicacion){
-        ubiList.add(ubicacion);
-        itemsFF++;
-    }
-
-    public static void deleteUbi(UbicacionDTO ubicacion){
-        try{
-            ubiList.remove(ubicacion);
-            itemsFF--;
-        }catch (Exception e){
-            System.out.println(e.getMessage());
+        Nodo(UbicacionDTO dato) {
+            this.dato = dato;
+            this.siguiente = null;
         }
     }
 
-    public static void updateUbi(UbicacionDTO ubicacion){
+    public static void addUbi(UbicacionDTO ubicacion) {
+        Nodo nuevo = new Nodo(ubicacion);
+        if (head == null) {
+            head = nuevo;
+        } else {
+            Nodo actual = head;
+            while (actual.siguiente != null) {
+                actual = actual.siguiente;
+            }
+            actual.siguiente = nuevo;
+        }
+
+    }
+
+    public static void deleteUbi(UbicacionDTO ubicacion) {
+        if (head == null) return;
+
+        if (head.dato.equals(ubicacion)) {
+            head = head.siguiente;
+            return;
+        }
+
+        Nodo actual = head;
+        while (actual.siguiente != null && !actual.siguiente.dato.equals(ubicacion)) {
+            actual = actual.siguiente;
+        }
+
+        if (actual.siguiente != null) {
+            actual.siguiente = actual.siguiente.siguiente;
+        }
+    }
+
+    public static void updateUbi(UbicacionDTO ubicacion) {
         Long id = ubicacion.getIdUbicacion();
-        int index = 0;
-
-        for (int i = 0; i < ubiList.size(); i++){
-            if (ubiList.get(i).getIdUbicacion().equals(id)){
-                index = i;
-                break;
+        Nodo actual = head;
+        while (actual != null) {
+            if (actual.dato.getIdUbicacion().equals(id)) {
+                actual.dato = ubicacion;
+                return;
             }
+            actual = actual.siguiente;
         }
-
-        if (index != -1){
-            ubiList.set(index, ubicacion);
-        }else{
-            System.out.println("UBICACION NO ENCONTRADO, NO SE ACTUALIZO");
-        }
+        System.out.println("UBICACION NO ENCONTRADA, NO SE ACTUALIZO");
     }
 
-
-    public static UbicacionDTO getUbi(Long id){
-
-        for (int i = 0; i< ubiList.size(); i++ ){
-            if (ubiList.get(i).getIdUbicacion().equals(id)){
-                return ubiList.get(i);
+    public static UbicacionDTO getUbi(Long id) {
+        Nodo actual = head;
+        while (actual != null) {
+            if (actual.dato.getIdUbicacion().equals(id)) {
+                return actual.dato;
             }
+            actual = actual.siguiente;
         }
         return null;
     }
-
 
     public static void sincro() {
         Session se = HibernateUtil.getSessionFactory().openSession();
         try {
             se.beginTransaction();
-            List<Ubicacion> ubs = se.createQuery("from Ubicacion ", Ubicacion.class).list();
-            ubiList.clear();
-            ubs.forEach(ub -> ubiList.add(UbicacionMapper.toDTO(ub)));
+            List<Ubicacion> ubs = se.createQuery("from Ubicacion", Ubicacion.class).list();
+            head = null;
 
-
-            itemsBD = (long) ubiList.size();
-            itemsFF = (long) ubiList.size();
+            for (Ubicacion ub : ubs) {
+                addUbi(UbicacionMapper.toDTO(ub));
+            }
 
 
             se.getTransaction().commit();
@@ -88,27 +104,32 @@ public class UbicacionList {
         }
     }
 
-    public static List<UbicacionDTO> buscarUbi(String value){
+    public static List<UbicacionDTO> buscarUbi(String value) {
+        List<UbicacionDTO> resultado = new ArrayList<>();
+        Nodo actual = head;
 
-        List<UbicacionDTO> ubs = new ArrayList<>();
-
-        for (int i = 0; i<ubiList.size();i++){
-            if (ubiList.get(i).getNombre().toLowerCase().contains(value.toLowerCase())){
-                ubs.add(ubiList.get(i));
+        while (actual != null) {
+            if (actual.dato.getNombre().toLowerCase().contains(value.toLowerCase())) {
+                resultado.add(actual.dato);
             }
+            actual = actual.siguiente;
         }
-
-        return ubs;
-    }
-    public static List<UbicacionDTO> getUbicacionList(){
-        return ubiList;
+        return resultado;
     }
 
+    public static List<UbicacionDTO> getUbicacionList() {
+        List<UbicacionDTO> lista = new ArrayList<>();
+        Nodo actual = head;
 
-    public static void deleteById(Long id){
+        while (actual != null) {
+            lista.add(actual.dato);
+            actual = actual.siguiente;
+        }
+        return lista;
+    }
+
+    public static void deleteById(Long id) {
         deleteUbi(getUbi(id));
     }
-
-
-
 }
+

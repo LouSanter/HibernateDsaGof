@@ -10,6 +10,7 @@ import org.lousanter.model.mapper.ProductoMapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductoBST {
 
@@ -91,16 +92,20 @@ public class ProductoBST {
             inOrden(nodo.der, lista);
         }
     }
-
+    
     public static void sincro() {
         Session se = HibernateUtil.getSessionFactory().openSession();
         try {
             se.beginTransaction();
             List<Producto> productos = se.createQuery("from Producto", Producto.class).list();
             clear();
-            productos.stream()
+            List<ProductoDTO> dtos = productos.stream()
                     .map(ProductoMapper::toDTO)
-                    .forEach(e -> insertar(e));
+                    .collect(Collectors.toList());
+
+            dtos.forEach(ProductoBST::insertar);
+            ProductoQueue.cargarDesdeLista(dtos);
+
             se.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -108,6 +113,7 @@ public class ProductoBST {
             se.close();
         }
     }
+
 
 
 
@@ -119,11 +125,11 @@ public class ProductoBST {
 
     public void eliminar(Long id) {
         raiz = eliminarRec(raiz, id);
-        sincro();
     }
 
 
     public static void insertar(ProductoDTO producto) {
+
         raiz = insertarRec(raiz, producto);
 
     }

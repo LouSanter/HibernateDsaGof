@@ -14,7 +14,6 @@ public class DaoProdController extends ProductoService {
     @Override
     public void registrarProducto(ProductoDTO dto, Ubicacion ubicacion, Proveedor proveedor, Categoria categoria) {
         super.registrarProducto(dto, ubicacion, proveedor, categoria);
-
         Observable.notifyObservers();
     }
 

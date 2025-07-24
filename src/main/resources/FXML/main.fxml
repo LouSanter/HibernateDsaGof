@@ -31,7 +31,7 @@
                </font>
             </Button>
             <Button fx:id="btnCate" layoutX="86.0" layoutY="135.0" mnemonicParsing="false" onAction="#goToCate" prefHeight="48.0" prefWidth="236.0" styleClass="btn" text="CATEGORIAS" />
-            <Button fx:id="btnRepo" mnemonicParsing="false" prefHeight="52.0" prefWidth="236.0" styleClass="btn" text="REPOSICION" />
+            <Button fx:id="btnRepo" mnemonicParsing="false" onAction="#goToRepo" prefHeight="52.0" prefWidth="236.0" styleClass="btn" text="REPOSICION" />
             <Button fx:id="btnProv" layoutX="10.0" layoutY="160.0" mnemonicParsing="false" onAction="#goToProv" prefHeight="55.0" prefWidth="236.0" styleClass="btn" text="PROVEEDOR" />
             <Button fx:id="btnUbi" layoutX="10.0" layoutY="251.0" mnemonicParsing="false" onAction="#goToUbi" prefHeight="55.0" prefWidth="236.0" styleClass="btn" text="UBICACION" />
          </children>

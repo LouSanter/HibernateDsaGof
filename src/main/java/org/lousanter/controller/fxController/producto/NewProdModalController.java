@@ -23,8 +23,7 @@ import org.lousanter.model.dto.CategoriaDTO;
 import org.lousanter.model.dto.ProductoDTO;
 import org.lousanter.model.dto.ProveedorDTO;
 import org.lousanter.model.dto.UbicacionDTO;
-import org.lousanter.model.entities.Producto;
-import org.lousanter.model.entities.Ubicacion;
+
 import org.lousanter.model.factory.ProductoFactory;
 import org.lousanter.model.factory.ProveedorFactory;
 import org.lousanter.model.mapper.CategoriaMapper;
@@ -143,7 +142,7 @@ public class NewProdModalController implements Initializable {
                 loadingStage.initModality(Modality.APPLICATION_MODAL);
                 loadingStage.show();
 
-                Task<String> task = new Task<>() {
+                Task<String> task = new Task<String>() {
                     @Override
                     protected String call() throws Exception {
                         cc = new ChatClientConstructor();

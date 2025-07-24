@@ -3,7 +3,6 @@ package org.lousanter.util.proveedorUtil;
 import javafx.scene.control.Alert;
 import org.hibernate.Session;
 import org.lousanter.dao.HibernateUtil;
-
 import org.lousanter.model.entities.Proveedor;
 import org.lousanter.model.dto.ProveedorDTO;
 import org.lousanter.model.mapper.ProveedorMapper;
@@ -13,69 +12,86 @@ import java.util.List;
 
 public class ProveedorList {
 
-    private static Long itemsBD = 0L;
-    private static Long itemsFF = 0L;
+    private static Nodo head = null;
 
-    private static List<ProveedorDTO> provList = new ArrayList<>();
+    private static class Nodo {
+        ProveedorDTO dato;
+        Nodo siguiente;
 
-
-    public static void addProveedor(ProveedorDTO proveedor){
-        provList.add(proveedor);
-        itemsFF++;
-    }
-
-    public static void deleteProveedor(ProveedorDTO proveedor){
-        try{
-            provList.remove(proveedor);
-            itemsFF--;
-        }catch (Exception e){
-            System.out.println(e.getMessage());
+        Nodo(ProveedorDTO dato) {
+            this.dato = dato;
         }
     }
 
-    public static void updateProveedor(ProveedorDTO proveedor){
+    public static void addProveedor(ProveedorDTO proveedor) {
+        Nodo nuevo = new Nodo(proveedor);
+        if (head == null) {
+            head = nuevo;
+        } else {
+            Nodo actual = head;
+            while (actual.siguiente != null) {
+                actual = actual.siguiente;
+            }
+            actual.siguiente = nuevo;
+        }
+    }
+
+    public static void deleteProveedor(ProveedorDTO proveedor) {
+        if (head == null) return;
+
+        if (head.dato.equals(proveedor)) {
+            head = head.siguiente;
+            return;
+        }
+
+        Nodo actual = head;
+        while (actual.siguiente != null && !actual.siguiente.dato.equals(proveedor)) {
+            actual = actual.siguiente;
+        }
+
+        if (actual.siguiente != null) {
+            actual.siguiente = actual.siguiente.siguiente;
+        }
+    }
+
+    public static void updateProveedor(ProveedorDTO proveedor) {
         Long id = proveedor.getIdProveedor();
-        int index = 0;
+        Nodo actual = head;
 
-        for (int i = 0; i < provList.size(); i++){
-            if (provList.get(i).getIdProveedor().equals(id)){
-                index = i;
-                break;
+        while (actual != null) {
+            if (actual.dato.getIdProveedor().equals(id)) {
+                actual.dato = proveedor;
+                return;
             }
+            actual = actual.siguiente;
         }
 
-        if (index != -1){
-            provList.set(index, proveedor);
-        }else{
-            System.out.println("PROVVEDOR NO ENCONTRADO, NO SE ACTUALIZO");
-        }
+        System.out.println("PROVEEDOR NO ENCONTRADO, NO SE ACTUALIZO");
     }
 
+    public static ProveedorDTO getProveedor(Long id) {
+        Nodo actual = head;
 
-    public static ProveedorDTO getProveedor(Long id){
-        Proveedor prov;
-        for (int i = 0; i< provList.size(); i++ ){
-            if (provList.get(i).getIdProveedor().equals(id)){
-                return provList.get(i);
+        while (actual != null) {
+            if (actual.dato.getIdProveedor().equals(id)) {
+                return actual.dato;
             }
+            actual = actual.siguiente;
         }
+
         return null;
     }
-
 
     public static void sincro() {
         Session se = HibernateUtil.getSessionFactory().openSession();
         try {
             se.beginTransaction();
-            List<Proveedor> provs = se.createQuery("from Proveedor ", Proveedor.class).list();
-            provList.clear();
+            List<Proveedor> provs = se.createQuery("from Proveedor", Proveedor.class).list();
+            head = null;
 
-            provs.forEach(prov -> provList.add(ProveedorMapper.toDTO(prov)));
-
-
-            itemsBD = (long) provList.size();
-            itemsFF = (long) provList.size();
-
+            for (Proveedor p : provs) {
+                addProveedor(ProveedorMapper.toDTO(p));
+            }
 
             se.getTransaction().commit();
         } catch (Exception e) {
@@ -88,27 +104,33 @@ public class ProveedorList {
         }
     }
 
-    public static List<ProveedorDTO> buscarProv(String value){
+    public static List<ProveedorDTO> buscarProv(String value) {
+        List<ProveedorDTO> resultado = new ArrayList<>();
+        Nodo actual = head;
 
-        List<ProveedorDTO> provs = new ArrayList<>();
-
-        for (int i = 0; i<provList.size();i++){
-            if (provList.get(i).getNombre().toLowerCase().contains(value.toLowerCase())){
-                provs.add(provList.get(i));
+        while (actual != null) {
+            if (actual.dato.getNombre().toLowerCase().contains(value.toLowerCase())) {
+                resultado.add(actual.dato);
             }
+            actual = actual.siguiente;
         }
 
-        return provs;
-    }
-    public static List<ProveedorDTO> getProvList(){
-        return provList;
+        return resultado;
     }
 
+    public static List<ProveedorDTO> getProvList() {
+        List<ProveedorDTO> lista = new ArrayList<>();
+        Nodo actual = head;
 
-    public static void deleteById(Long id){
+        while (actual != null) {
+            lista.add(actual.dato);
+            actual = actual.siguiente;
+        }
+
+        return lista;
+    }
+
+    public static void deleteById(Long id) {
         deleteProveedor(getProveedor(id));
     }
-
-
-
 }

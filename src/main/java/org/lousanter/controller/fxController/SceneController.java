@@ -56,7 +56,8 @@ public class SceneController implements Initializable {
     }
 
     public void goToRepo(ActionEvent event) throws IOException {
-        goTo("/Reposicion/repo");
+    	System.out.println("Going to reposicion");
+        goTo("Reposicion/reposicion");
     }
 
     public void goToUbi(ActionEvent event) throws IOException {

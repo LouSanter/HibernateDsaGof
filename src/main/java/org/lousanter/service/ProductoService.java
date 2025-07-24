@@ -19,7 +19,6 @@ public class ProductoService {
 
     public void registrarProducto(ProductoDTO dto, Ubicacion ubicacion, Proveedor proveedor, Categoria categoria) {
         Producto producto = ProductoMapper.toEntity(dto, categoria, ubicacion, proveedor);
-        System.out.println("Entrando en service saveProd");
 
         producto.setIdProducto(null);
         producto = pRepo.save(producto);
@@ -27,16 +26,20 @@ public class ProductoService {
 
         System.out.println("Producto guardado con ID: " + producto.getIdProducto());
 
+        
         if (producto.getIdProducto() != null) {
             dto.setIdProducto(producto.getIdProducto());
             ProductoStack.push(dto, ProductoHistorialEntry.Accion.NUEVO);
             pTree.insertar(dto);
 
             if (producto.getStock() <= producto.getStockMin()) {
-                pQueue.enqueue(producto);
+                pQueue.enqueue(dto);
+            } else {
+                ProductoQueue.removeById(dto.getIdProducto());
             }
+
         } else {
-            System.err.println("⚠No se gener un ID ");
+            System.err.println("No se gener un ID ");
         }
     }
 
@@ -55,10 +58,11 @@ public class ProductoService {
         pTree.reemplazar(dto);
 
         if (producto.getStock() <= producto.getStockMin()) {
-            pQueue.enqueue(producto);
-
-
+            pQueue.enqueue(dto);
+        } else {
+            ProductoQueue.removeById(dto.getIdProducto());
         }
+
     }
 
 
@@ -82,6 +86,10 @@ public class ProductoService {
                 pRepo.delete(producto);
                 
                 pTree.eliminar(producto.getIdProducto());
+                
+                if (ProductoQueue.contains(id)) {
+					ProductoQueue.removeById(id);
+				}
 
             } catch (RuntimeException e) {
                 System.out.println("Error al eliminar el producto desde Service: " + e.getMessage());

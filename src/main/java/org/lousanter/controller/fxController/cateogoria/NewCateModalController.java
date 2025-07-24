@@ -75,7 +75,7 @@ public class NewCateModalController implements Initializable {
                 loadingStage.initModality(Modality.APPLICATION_MODAL);
                 loadingStage.show();
 
-                Task<String> task = new Task<>() {
+                Task<String> task = new Task<String>() {
                     @Override
                     protected String call() throws Exception {
                         cc = new ChatClientConstructor();

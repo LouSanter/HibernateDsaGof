@@ -6,8 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.lousanter.IA.ChatClientConstructor;
-import org.lousanter.service.ProductoService;
+
 import org.lousanter.util.categoriaUtil.CategoriaList;
 import org.lousanter.util.productoUtil.ProductoBST;
 import org.lousanter.util.proveedorUtil.ProveedorList;
@@ -27,18 +26,14 @@ public class Main extends Application {
         Scene scene = new Scene(root);
 
         stage.setScene(scene);
-
         stage.setTitle("INVENTARIO CON DSA");
         stage.setFullScreen(true);
-
-
         stage.show();
 
     }
 
 
     private void cargarCache() {
-
         CategoriaList.sincro();
         ProveedorList.sincro();
         UbicacionList.sincro();

@@ -1,24 +1,16 @@
 package org.lousanter.controller.fxController.producto;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.net.URL;
+import java.util.List;
+import java.util.Optional;
+import java.util.ResourceBundle;
+
 import org.lousanter.controller.daoController.DaoCateController;
 import org.lousanter.controller.daoController.DaoProdController;
 import org.lousanter.controller.daoController.DaoProvController;
 import org.lousanter.controller.daoController.DaoUbiController;
-import org.lousanter.model.dto.CategoriaDTO;
 import org.lousanter.model.dto.ProductoDTO;
 import org.lousanter.model.entities.Categoria;
 import org.lousanter.model.entities.Proveedor;
@@ -28,16 +20,30 @@ import org.lousanter.model.mapper.ProveedorMapper;
 import org.lousanter.model.mapper.UbicacionMapper;
 import org.lousanter.model.observer.Observable;
 import org.lousanter.model.observer.Observer;
-import org.lousanter.util.productoUtil.ProductoBST;
 import org.lousanter.util.productoUtil.ProductoHistorialEntry;
 import org.lousanter.util.productoUtil.ProductoStack;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.net.URL;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class ProdController implements Initializable, Observer {
 
@@ -87,11 +93,10 @@ public class ProdController implements Initializable, Observer {
 
 
         MenuItem undo = new MenuItem("Deshacer");
-        MenuItem redo = new MenuItem("Rehacer");
 
         undo.setOnAction(e-> clickOnUndo());
 
-        historial.getItems().addAll(undo, redo);
+        historial.getItems().addAll(undo);
 
         contentPane.setOnMousePressed(this::handleMouseClick);
         colProd.setCellValueFactory(new PropertyValueFactory<>("nombre"));
@@ -151,7 +156,7 @@ public class ProdController implements Initializable, Observer {
 
 
     private void cargarTabla() {
-        ProductoBST.sincro();
+        //ProductoBST.sincro();
         System.out.println("Cargando tabla...");
         List<ProductoDTO> lista = daoProdController.listarProductos();
         ObservableList<ProductoDTO> productos = FXCollections.observableList(lista);
